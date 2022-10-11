@@ -19,8 +19,9 @@ const markup = galleryItems
 
 galleryContainer.insertAdjacentHTML('beforeend', markup);
 
+galleryContainer.addEventListener("click", openImage);
 
-galleryContainer.addEventListener("click", (event) => {
+function openImage(event) {
     event.preventDefault(); 
     if (event.target.nodeName !== "IMG") {
         return
@@ -40,5 +41,5 @@ galleryContainer.addEventListener("click", (event) => {
             console.log(event.code);
         } 
     }, {once: true});
-});
+};
 
