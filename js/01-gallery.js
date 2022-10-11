@@ -1,7 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector(".gallery");
-
 const markup = galleryItems
     .map(item => {
         return `<div class="gallery__item">
@@ -18,7 +17,6 @@ const markup = galleryItems
     .join("");
 
 galleryContainer.insertAdjacentHTML('beforeend', markup);
-
 galleryContainer.addEventListener("click", openImage);
 
 function openImage(event) {
@@ -33,13 +31,24 @@ function openImage(event) {
     src="${event.target.dataset.source}"
     alt="${event.target.alt}"
   />
-    `);
+    `, {
+        onClose: (instance) => {
+            console.log("Modal close")
+            window.removeEventListener("keydown", closeEscape);
+        }
+    }
+    );
+
     instance.show();
-    window.addEventListener("keydown", (event) => {
+    window.addEventListener("keydown", closeEscape);
+    function closeEscape(event) {
         if (event.code === 'Escape') {
             instance.close()
             console.log(event.code);
+            
         } 
-    }, {once: true});
+    };
 };
+
+
 
